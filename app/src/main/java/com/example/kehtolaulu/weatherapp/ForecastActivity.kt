@@ -14,7 +14,7 @@ class ForecastActivity : AppCompatActivity(), Callback, PositionCallback {
         this.position = position
     }
 
-    var api: WeatherApi.ApiInterface? = WeatherApi.client?.create(WeatherApi.ApiInterface::class.java)
+    var api: WeatherApi.ApiInterface? = WeatherApi.buildRetrofit().create(WeatherApi.ApiInterface::class.java)
     private var position: Int = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {

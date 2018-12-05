@@ -10,7 +10,7 @@ object Weather {
 
     var data: List<CitiesForecast.City>? = null
 
-    var api: WeatherApi.ApiInterface? = WeatherApi.client?.create(WeatherApi.ApiInterface::class.java)
+    var api: WeatherApi.ApiInterface? = WeatherApi.buildRetrofit().create(WeatherApi.ApiInterface::class.java)
 
     private const val units = "metric"
     private const val cnt = 20
