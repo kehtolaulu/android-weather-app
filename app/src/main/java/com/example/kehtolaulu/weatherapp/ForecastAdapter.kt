@@ -6,10 +6,11 @@ import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
+import kotlinx.android.extensions.LayoutContainer
+import kotlinx.android.synthetic.main.forecast.*
 
 
-class ForecastAdapter(diffCallback: DiffUtil.ItemCallback<CitiesForecast.City>, private val callback: Callback) : ListAdapter<CitiesForecast.City, ForecastAdapter.ForecastHolder>(diffCallback) {
+class ForecastAdapter(diffCallback: DiffUtil.ItemCallback<CitiesForecast.City>, private val callback: PositionCallback) : ListAdapter<CitiesForecast.City, ForecastAdapter.ForecastHolder>(diffCallback) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ForecastHolder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.forecast, parent, false)
@@ -26,10 +27,7 @@ class ForecastAdapter(diffCallback: DiffUtil.ItemCallback<CitiesForecast.City>, 
         }
     }
 
-    inner class ForecastHolder(var view: View) : RecyclerView.ViewHolder(view) {
+    inner class ForecastHolder(override val containerView: View) : RecyclerView.ViewHolder(containerView), LayoutContainer {
         var id: Int = 0
-        var tvCity: TextView = view.findViewById(R.id.tv_city)
-        var tvCountry: TextView = view.findViewById(R.id.tv_country)
-        var tvTemp: TextView = view.findViewById(R.id.tv_temperature)
     }
 }

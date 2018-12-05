@@ -17,7 +17,7 @@ import com.google.android.gms.location.LocationServices
 import com.google.android.gms.tasks.Task
 
 
-class ListActivity : AppCompatActivity(), Callback {
+class ListActivity : AppCompatActivity(), Callback, PositionCallback {
     private var forecastAdapter: ForecastAdapter? = null
     private lateinit var fusedLocationClient: FusedLocationProviderClient
 
@@ -41,7 +41,7 @@ class ListActivity : AppCompatActivity(), Callback {
                 lat = location.latitude
                 lng = location.longitude
             }
-            Weather.getWeather(lat, lng, this)
+            Weather.getWeather(lat, lng, this, this)
         }
     }
 

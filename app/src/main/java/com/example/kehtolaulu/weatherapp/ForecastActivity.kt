@@ -1,11 +1,11 @@
 package com.example.kehtolaulu.weatherapp
 
-import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
-import android.widget.TextView
+import android.support.v7.app.AppCompatActivity
+import kotlinx.android.synthetic.main.activity_forecast.*
 import retrofit2.Response
 
-class ForecastActivity : AppCompatActivity(), Callback {
+class ForecastActivity : AppCompatActivity(), Callback, PositionCallback {
     override fun onSuccess(response: Response<CitiesForecast>?) {
 
     }
@@ -15,23 +15,11 @@ class ForecastActivity : AppCompatActivity(), Callback {
     }
 
     var api: WeatherApi.ApiInterface? = WeatherApi.client?.create(WeatherApi.ApiInterface::class.java)
-    private lateinit var tvCity: TextView
-    private lateinit var tvCountry: TextView
-    private lateinit var tvTemp: TextView
-    private lateinit var tvHumidity: TextView
-    private lateinit var tvPressure: TextView
-    private lateinit var tvWind: TextView
     private var position: Int = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_forecast)
-        tvCity = findViewById(R.id.tv_city)
-        tvCountry = findViewById(R.id.tv_country)
-        tvTemp = findViewById(R.id.tv_temp)
-        tvHumidity = findViewById(R.id.tv_humidity)
-        tvPressure = findViewById(R.id.tv_pressure)
-        tvWind = findViewById(R.id.tv_wind)
         position = intent.getIntExtra("position", 0)
         setWeather(position)
     }
@@ -39,23 +27,12 @@ class ForecastActivity : AppCompatActivity(), Callback {
     private fun setWeather(position: Int) {
         tvCity.text = Weather.data?.get(position)?.name
         tvCountry.text = Weather.data?.get(position)?.sys?.country
-        tvTemp.text = Weather.data?.get(position)?.main?.temp.toString() + "˚C"
-        tvHumidity.text = Weather.data?.get(position)?.main?.humidity.toString()
-        tvPressure.text = Weather.data?.get(position)?.main?.pressure.toString()
-
+        tvTemp.text = getString(R.string.tv_temp, Weather.data?.get(position)?.main?.temp.toString())
+        tvHumidity.text = getString(R.string.tv_humidity, Weather.data?.get(position)?.main?.humidity.toString())
+        tvPressure.text = getString(R.string.tv_pressure, Weather.data?.get(position)?.main?.pressure.toString())
         var wind = Weather.data?.get(position)?.wind?.deg
-        /*
-        337-360 0-22 - north
-        22-67 - north east
-        67-112 east
-        112-157 - south east
-        157-202 south
-        202-247 south west
-        247-292 west
-        292-337 north west
-         */
         if (wind != null) {
-            tvWind.text = degToString(wind)
+            tvWind.text = getString(R.string.tv_wind, degToString(wind))
         }
     }
 
