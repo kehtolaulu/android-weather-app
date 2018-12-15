@@ -1,14 +1,14 @@
-package com.example.kehtolaulu.weatherapp
+package com.example.kehtolaulu.weatherapp.activities
 
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
+import com.example.kehtolaulu.weatherapp.*
+import com.example.kehtolaulu.weatherapp.interfaces.PositionCallback
+import com.example.kehtolaulu.weatherapp.network.Weather
+import com.example.kehtolaulu.weatherapp.network.WeatherApi
 import kotlinx.android.synthetic.main.activity_forecast.*
-import retrofit2.Response
 
-class ForecastActivity : AppCompatActivity(), Callback, PositionCallback {
-    override fun onSuccess(response: Response<CitiesForecast>?) {
-
-    }
+class ForecastActivity : AppCompatActivity(), PositionCallback {
 
     override fun callback(position: Int) {
         this.position = position

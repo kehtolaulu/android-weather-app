@@ -1,13 +1,15 @@
-package com.example.kehtolaulu.weatherapp
+package com.example.kehtolaulu.weatherapp.network
 
 import android.content.Context
-import android.widget.Toast
+import com.example.kehtolaulu.weatherapp.database.AppDatabase
+import com.example.kehtolaulu.weatherapp.entities.CitiesForecast
+import com.example.kehtolaulu.weatherapp.interfaces.Callback
 import retrofit2.Call
 import retrofit2.Response
 
 
 object Weather {
-
+    private var db: AppDatabase? = null
     var data: List<CitiesForecast.City>? = null
 
     var api: WeatherApi.ApiInterface? = WeatherApi.buildRetrofit().create(WeatherApi.ApiInterface::class.java)
@@ -25,7 +27,7 @@ object Weather {
             }
 
             override fun onFailure(call: Call<CitiesForecast>?, t: Throwable?) {
-                Toast.makeText(context, "Fail sore", Toast.LENGTH_LONG)
+                data = db?.weatherDao()?.getAll()
             }
         })
     }

@@ -1,6 +1,7 @@
-package com.example.kehtolaulu.weatherapp
+package com.example.kehtolaulu.weatherapp.activities
 
 import android.support.v7.util.DiffUtil
+import com.example.kehtolaulu.weatherapp.entities.CitiesForecast
 
 class ForecastListDiffCallback : DiffUtil.ItemCallback<CitiesForecast.City>() {
 

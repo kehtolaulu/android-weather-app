@@ -1,4 +1,4 @@
-package com.example.kehtolaulu.weatherapp
+package com.example.kehtolaulu.weatherapp.adapters
 
 import android.support.v7.recyclerview.extensions.ListAdapter
 import android.support.v7.util.DiffUtil
@@ -6,6 +6,9 @@ import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import com.example.kehtolaulu.weatherapp.interfaces.PositionCallback
+import com.example.kehtolaulu.weatherapp.R
+import com.example.kehtolaulu.weatherapp.entities.CitiesForecast
 import kotlinx.android.extensions.LayoutContainer
 import kotlinx.android.synthetic.main.forecast.*
 

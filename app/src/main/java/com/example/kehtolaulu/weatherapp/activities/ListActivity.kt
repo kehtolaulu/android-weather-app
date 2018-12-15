@@ -1,4 +1,4 @@
-package com.example.kehtolaulu.weatherapp
+package com.example.kehtolaulu.weatherapp.activities
 
 import android.Manifest
 import android.content.Intent
@@ -10,20 +10,28 @@ import android.support.v4.content.ContextCompat
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
-import retrofit2.Response
-import android.location.LocationManager
+import com.example.kehtolaulu.weatherapp.*
+import com.example.kehtolaulu.weatherapp.adapters.ForecastAdapter
+import com.example.kehtolaulu.weatherapp.database.AppDatabase
+import com.example.kehtolaulu.weatherapp.entities.CitiesForecast
+import com.example.kehtolaulu.weatherapp.interfaces.Callback
+import com.example.kehtolaulu.weatherapp.interfaces.PositionCallback
+import com.example.kehtolaulu.weatherapp.network.Weather
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationServices
 import com.google.android.gms.tasks.Task
+import retrofit2.Response
 
 
 class ListActivity : AppCompatActivity(), Callback, PositionCallback {
     private var forecastAdapter: ForecastAdapter? = null
     private lateinit var fusedLocationClient: FusedLocationProviderClient
+    private var db: AppDatabase? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.list)
+        db = AppDatabase.getInstance(this)
         fusedLocationClient = LocationServices.getFusedLocationProviderClient(this)
         forecastAdapter = ForecastAdapter(ForecastListDiffCallback(), this)
         val recyclerView = findViewById<RecyclerView>(R.id.rv_forecast)
@@ -47,6 +55,13 @@ class ListActivity : AppCompatActivity(), Callback, PositionCallback {
 
     override fun onSuccess(response: Response<CitiesForecast>?) {
         forecastAdapter?.submitList(response?.body()?.list)
+        if (response != null) {
+            insertToDb(response.body()!!)
+        }
+    }
+
+    private fun insertToDb(weather: CitiesForecast) {
+        db?.weatherDao()?.insertAll(weather)
     }
 
     override fun callback(position: Int) {
@@ -76,7 +91,5 @@ class ListActivity : AppCompatActivity(), Callback, PositionCallback {
             }
         }
     }
-
-
 }
 
