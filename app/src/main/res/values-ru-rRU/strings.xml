@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Простая Погода</string>
+    <string name="tv_humidity">Влажность: %1$s</string>
+    <string name="tv_pressure">Давление: %1$s</string>
+    <string name="tv_wind">Ветер: %1$s</string>
+    <string name="tv_temp">%1$s˚C</string>
+</resources>
