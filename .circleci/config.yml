@@ -15,7 +15,7 @@ references:
          ~/.gradle
 
   workspace: &workspace
-    ~/
+    weatherapp
 
   attach_release_workspace: &attach_release_workspace
     attach_workspace:
