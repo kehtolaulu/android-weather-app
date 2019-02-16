@@ -23,7 +23,7 @@ references:
 
   persist_release_workspace: &persist_release_workspace
     persist_to_workspace:
-      root: *workspace
+      root: /home/circleci/weatherapp
       paths:
         - app/build
 
