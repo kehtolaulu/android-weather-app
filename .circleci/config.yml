@@ -15,7 +15,7 @@ references:
          ~/.gradle
 
   workspace: &workspace
-    ~/workspace
+    ~/.circleci
 
   attach_release_workspace: &attach_release_workspace
     attach_workspace:
