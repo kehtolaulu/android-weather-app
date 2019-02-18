@@ -23,9 +23,9 @@ references:
 
   persist_release_workspace: &persist_release_workspace
     persist_to_workspace:
-      root: /home/circleci/weatherapp
+      root: .
       paths:
-        - app/build
+        - .
 
   android_config: &android_config
     working_directory: *workspace
