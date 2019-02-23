@@ -4,6 +4,8 @@ apply plugin: 'kotlin-android'
 
 apply plugin: 'kotlin-android-extensions'
 
+apply plugin: 'io.gitlab.arturbosch.detekt'
+
 android {
     compileSdkVersion 28
     defaultConfig {
@@ -50,8 +52,8 @@ dependencies {
 
 detekt {
     version = "1.0.0-RC12"
-    input = files("weatherapp/app/src/main/kotlin")
-    config = files("weatherapp/qualityisreality/detekt-config.yml")
+    input = files("${project.rootDir}/${project.getName()}/src/main/") // путь к исходникам
+    config = files("${project.rootDir}/qualityisreality/detekt-config.yml") // путь к настройкам
     filters = ".*test.*,.*/resources/.*,.*/tmp/.*"
     reports {
         xml {
@@ -64,3 +66,4 @@ detekt {
         }
     }
 }
+
